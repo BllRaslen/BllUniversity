@@ -3,6 +3,9 @@ package com.blluniversity.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "Student")
 @Table(
         name = "student"/*,
@@ -73,12 +76,33 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "student_id",
+
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
                     name = "student1_id_fk"
             )
     )
     private Address address;
+
+    @ManyToMany(
+
+    cascade = CascadeType.ALL
+    )
+    @JoinTable(
+            name = "enrolment" ,
+            joinColumns = @JoinColumn(
+                    name = "student_id_",
+                    foreignKey =@ForeignKey(
+                            name = "enrolment_student_id_fk" )
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id_",
+                    foreignKey =@ForeignKey(
+                            name = "enrolment_course_id_fk" )
+            )
+
+    )
+    private List<Course> courses = new ArrayList<>();
 
     public Address getAddress() {
         return address;
@@ -166,6 +190,25 @@ public class Student {
         this.age = age;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+
+    public  void enrolToCourse(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
+
+    }
+    public  void unEnrolToCourse(Course course){
+        courses.remove(course);
+        course.getStudents().remove(this);
+
+    }
     @Override
     public String toString() {
         return "Student{" +

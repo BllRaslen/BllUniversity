@@ -3,6 +3,9 @@ package com.blluniversity.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "Course")
 @Table(name = "Course")
 public class Course {
@@ -31,6 +34,20 @@ public class Course {
             columnDefinition = "TEXT"
     )
     private String courseName;
+
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    @ManyToMany(
+            mappedBy = "courses"
+    )
+    private List<Student> students = new ArrayList<>();
 
     public Course(String courseName) {
         this.courseName = courseName;

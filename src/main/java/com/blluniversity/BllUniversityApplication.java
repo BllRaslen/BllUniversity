@@ -2,9 +2,11 @@ package com.blluniversity;
 
 
 import com.blluniversity.entities.Address;
+import com.blluniversity.entities.Course;
 import com.blluniversity.entities.Faculty;
 import com.blluniversity.entities.Student;
 import com.blluniversity.repositories.AddressRepository;
+import com.blluniversity.repositories.CourseRepository;
 import com.blluniversity.repositories.FacultyRepository;
 import com.blluniversity.repositories.StudentRepository;
 import com.github.javafaker.Faker;
@@ -26,33 +28,51 @@ public class BllUniversityApplication {
     CommandLineRunner commandLineRunner(
             StudentRepository studentRepository,
             FacultyRepository facultyRepository,
-            AddressRepository addressRepository) {
+            AddressRepository addressRepository,
+            CourseRepository courseRepository) {
         return args -> {
 
 
-            for (int i = 0; i < 10; i++) {
-
-
-                Faker faker = new Faker();
-                String firstName = faker.name().firstName();
-                String lastName = faker.name().lastName();
-                String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
-
-                final var tip = new Faculty(faker.funnyName().name());
-                Faculty faculty = facultyRepository.save(tip);
-
-
-                final var student = new Student(firstName, lastName, email, faker.number().numberBetween(10, 20));
-                faculty.addStudent(student);
-                facultyRepository.save(faculty);
-                Address address = new Address(
-                        firstName+" Mahallesi. "+lastName + " SK. " +" No : "+faker.number().numberBetween(50,70)
-                );
-                addressRepository.save(address);
-
+            for (int i = 0; i < 20; i++) {
 
             }
+            Faker faker = new Faker();
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
+
+            final var tip = new Faculty(faker.funnyName().name());
+            Faculty faculty = facultyRepository.save(tip);
+            faculty.addStudent(new Student(firstName, lastName, email, faker.number().numberBetween(10, 20)));
+            faculty.addStudent(new Student(firstName, lastName, email, faker.number().numberBetween(10, 20)));
+            Student student = new Student(firstName, lastName, email, faker.number().numberBetween(10, 20));
+            faculty.addStudent(
+                    student);
+
+            Address address = new Address(
+                    firstName + " Mahallesi. " + lastName + " SK. " + " No : " + faker.number().numberBetween(50, 70)
+            );
+
+
+
+            student.enrolToCourse(new Course("Course : " + firstName + "Bilal"));
+            student.enrolToCourse(new Course("Course : " + firstName + "Bilal"));
+            student.enrolToCourse(new Course("Course : " + firstName + "Bilal"));
+
+
+
+
+
+
+
+
+            facultyRepository.save(faculty);
+            addressRepository.save(address);
+        };
+
+
+
         };
     }
 
-}
+

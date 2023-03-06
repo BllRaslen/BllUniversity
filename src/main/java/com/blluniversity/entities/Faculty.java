@@ -41,7 +41,9 @@ public class Faculty {
     @OneToMany(
             mappedBy = "faculty",
             orphanRemoval = true,
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+
+            fetch = FetchType.LAZY
     )
     private List<Student> studentList = new ArrayList<>();
 
