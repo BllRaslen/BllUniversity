@@ -31,6 +31,9 @@ public class Faculty {
     )
     private String facultyName;
 
+
+    private Student faculty;
+
     public Faculty(String facultyName) {
         this.facultyName = facultyName;
     }

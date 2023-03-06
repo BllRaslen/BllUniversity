@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 @Entity(name = "Student")
 @Table(
         name = "Student",
-uniqueConstraints =@UniqueConstraint(
-        name = "email_unique",
-        columnNames = "email"
-) )
+        uniqueConstraints = @UniqueConstraint(
+                name = "email_unique",
+                columnNames = "email"
+        ))
 public class Student {
 
 
@@ -57,6 +57,14 @@ public class Student {
             columnDefinition = "Integer"
     )
     private Integer age;
+    @ManyToOne
+    @JoinColumn(
+            name = "faculty_id",
+            foreignKey = @ForeignKey(
+                    name = "fakulty_id_fk"
+            )
+    )
+    private Faculty faculty;
 
     public Student(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
