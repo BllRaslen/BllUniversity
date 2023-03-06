@@ -1,6 +1,10 @@
 package com.blluniversity.entities;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.EnableMBeanExport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Faculty")
 @Table(name = "Faculty")
@@ -32,7 +36,16 @@ public class Faculty {
     private String facultyName;
 
 
-    private Student faculty;
+
+
+    @OneToMany(
+            mappedBy = "faculty",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Student> studentList = new ArrayList<>();
+
+
 
     public Faculty(String facultyName) {
         this.facultyName = facultyName;
@@ -57,6 +70,32 @@ public class Faculty {
     public void setFacultyName(String facultyName) {
         this.facultyName = facultyName;
     }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public void addStudent(Student student) {
+        if (!this.studentList.contains(student)) {
+            this.studentList.add(student);
+            student.setFaculty(this);
+        }
+    }
+
+    public void removeBook(Student student) {
+        if (this.studentList.contains(student)) {
+            this.studentList.remove(student);
+            student.setFaculty(null);
+        }
+    }
+
+
+
+
 
     @Override
     public String toString() {

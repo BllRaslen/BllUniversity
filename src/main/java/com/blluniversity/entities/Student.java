@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 
 @Entity(name = "Student")
 @Table(
-        name = "Student",
+        name = "student"/*,
         uniqueConstraints = @UniqueConstraint(
                 name = "email_unique",
                 columnNames = "email"
-        ))
+        )*/)
 public class Student {
 
 
@@ -17,7 +17,7 @@ public class Student {
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
-            allocationSize = 1
+            allocationSize = 1,initialValue = 2
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -49,6 +49,7 @@ public class Student {
             name = "email",
             length = 255,
             columnDefinition = "TEXT"
+
     )
     private String email;
     @Column(
@@ -60,11 +61,22 @@ public class Student {
     @ManyToOne
     @JoinColumn(
             name = "faculty_id",
+            nullable = false,
             foreignKey = @ForeignKey(
-                    name = "fakulty_id_fk"
+                    name = "student_faculty_fk"
             )
     )
-    private Faculty faculty;
+    public Faculty faculty;
+
+
+    public Student(Long id, String firstName, String lastName, String email, Integer age) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+
+    }
 
     public Student(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
@@ -74,6 +86,23 @@ public class Student {
     }
 
     public Student() {
+    }
+
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public Long getId() {
