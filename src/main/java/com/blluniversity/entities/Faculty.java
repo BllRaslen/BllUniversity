@@ -31,8 +31,35 @@ public class Faculty {
     )
     private String facultyName;
 
+    public Faculty(String facultyName) {
+        this.facultyName = facultyName;
+    }
 
+    public Faculty() {
 
+    }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFacultyName() {
+        return facultyName;
+    }
+
+    public void setFacultyName(String facultyName) {
+        this.facultyName = facultyName;
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", facultyName='" + facultyName + '\'' +
+                '}';
+    }
 }
