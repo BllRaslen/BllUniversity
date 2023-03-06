@@ -23,6 +23,13 @@ public class Faculty {
             unique = true
     )
     private Long id;
+    @Column(
+            name = "faculty_name",
+            nullable = false,
+            length = 255,
+            columnDefinition = "TEXT"
+    )
+    private String facultyName;
 
 
 
