@@ -32,6 +32,22 @@ public class Address {
     )
     private String address;
 
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+    @OneToOne(
+            mappedBy = "address",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private Student student;
+
+
     public Address(String address) {
         this.address = address;
     }

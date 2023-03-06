@@ -69,6 +69,27 @@ public class Student {
     public Faculty faculty;
 
 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "student_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "student1_id_fk"
+            )
+    )
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+
+
     public Student(Long id, String firstName, String lastName, String email, Integer age) {
         this.id = id;
         this.firstName = firstName;
