@@ -1,6 +1,6 @@
 package com.blluniversity.entities;
 
-
+//Khattap
 import jakarta.persistence.*;
 
 @Entity(name = "Student")
