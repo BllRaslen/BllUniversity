@@ -20,7 +20,7 @@ public class Student {
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
-            allocationSize = 1,initialValue = 2
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -73,14 +73,10 @@ public class Student {
 
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "student_id",
-
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "student1_id_fk"
-            )
+    @OneToOne(
+            mappedBy = "student",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
     )
     private Address address;
 

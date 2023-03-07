@@ -88,7 +88,8 @@ public class Faculty {
         }
     }
 
-    public void removeBook(Student student) {
+
+    public void removeStudent(Student student) {
         if (this.studentList.contains(student)) {
             this.studentList.remove(student);
             student.setFaculty(null);

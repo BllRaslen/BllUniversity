@@ -40,10 +40,16 @@ public class Address {
     public void setStudent(Student student) {
         this.student = student;
     }
-    @OneToOne(
-            mappedBy = "address",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+
+    @OneToOne(/*cascade = CascadeType.ALL*/)
+    @JoinColumn(
+            name = "student_id_fk",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "student _ address_id_fk"
+            )
+
+
     )
     private Student student;
 

@@ -49,6 +49,24 @@ public class Course {
     )
     private List<Student> students = new ArrayList<>();
 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "proffesor_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "student_professor_id_fk"
+            )
+    )
+    private Professor professor;
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
     public Course(String courseName) {
         this.courseName = courseName;
     }
